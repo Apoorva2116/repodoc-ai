@@ -6,3 +6,7 @@ chroma_db/
 logs/
 .pytest_cache/
 .streamlit/secrets.toml
+
+# Local corpus repository and secrets
+corpus/.env
+corpus/.git/

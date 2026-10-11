@@ -1,0 +1,46 @@
+services:
+  realworld:
+    build:
+      context: . 
+      dockerfile: ./Dockerfile
+    volumes:
+      - .:/app
+    networks:
+      - realworld
+    ports:
+      - 8080:8080
+    environment:
+      SHELL: /bin/bash
+      FLASK_APP: ${FLASK_APP:-realworld.app}
+      FLASK_ENV: ${FLASK_ENV:-development}
+      FLASK_RUN_PORT: ${FLASK_RUN_PORT:-8080}
+      POSTGRES_DB: ${POSTGRES_DB:-realworlddb}
+      POSTGRES_HOST: ${POSTGRES_DB:-postgres}
+      POSTGRES_USER: ${POSTGRES_USER:-testuser}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      FLASK_DEBUG: 1
+    depends_on:
+      - postgres
+    stdin_open: true
+    tty: true
+
+  postgres:
+    image: postgres:15
+    platform: linux/amd64
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-realworlddb}
+      POSTGRES_USER: ${POSTGRES_USER:-testuser}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+    healthcheck:
+      test: ["CMD", "pg_isready"]
+      interval: 10s
+      timeout: 30s
+      retries: 5
+    ports:
+      - 5432:5432
+    networks:
+      - realworld
+
+networks:
+  realworld:
+    name: "realworld"

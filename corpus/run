@@ -1,0 +1,154 @@
+#!/usr/bin/env bash
+
+
+source .env
+
+
+# 
+# HELPERS
+# 
+_enter_container() {
+    if [ "$IN_DOCKER" != "true" ]; then
+        local cmd="$1"
+        shift
+
+        echo "Building Docker image..."
+        docker compose -f docker-compose.yml build
+
+        echo "Running command inside Docker container: $cmd"
+        docker compose -f docker-compose.yml run --rm \
+            --service-ports \
+            -e RUN_LOCAL=true \
+            -e IN_DOCKER=true \
+            -w /app \
+            --use-aliases realworld \
+            ./run $cmd "$@"
+    fi
+}
+
+_wait_for_db() {
+  echo "Wait for PostgreSQL to accept connections..."
+  for i in {1..30}; do
+    pg_isready -h "$POSTGRES_HOST" -p "$POSTGRES_PORT" -U "$POSTGRES_USER"
+    if [ $? -eq 0 ]; then
+      echo "DB is ready!"
+      break
+    fi
+    echo "DB not ready to accept connections. Waiting..."
+    sleep 1
+  done
+}
+
+_run_db_migrations() {
+    set -e
+
+    # Run Alembic migrations
+    alembic upgrade head
+
+    # Check the exit status of the Alembic command
+    if [ $? -eq 0 ]; then
+        echo "Alembic migrations succeeded."
+    else
+        echo "Error: Alembic migrations failed."
+        exit 1
+    fi
+}
+
+
+info=()
+
+#
+# Core commands
+#
+info+=( "dev -- Enter a shell with the dev environment set up" )
+dev() {
+    _enter_container "_dev"
+}
+
+_dev(){
+    set -e
+    _wait_for_db
+    _run_db_migrations
+    bash
+}
+
+info+=( "server -- Start the server" )
+server() {
+    _enter_container "_server"
+}
+
+_server() {
+    _wait_for_db
+    _run_db_migrations
+    poetry run flask run --host=0.0.0.0
+}
+
+info+=( "test -- Run tests" )
+test() {
+    _enter_container "_test"
+}
+
+_test() {
+    _wait_for_db
+    _run_db_migrations
+    poetry run python -m pytest -vv
+}
+
+info+=( "e2e -- Run end-to-end tests against local api (requires node)" )
+e2e() {
+    # Run Postman collection from https://github.com/gothinkster/realworld/tree/main/api
+    set -e
+    poetry run ./scripts/run-api-tests.sh
+}
+
+info+=( "fmt -- Run black and ruff" )
+fmt() {
+    _enter_container "_fmt"
+}
+
+_fmt() {
+    poetry run black .
+    poetry run ruff check . --fix
+}
+
+info+=( "mypy -- Run static type checker" )
+mypy() {
+    _enter_container "_mypy"
+}
+
+_mypy() {
+    poetry run mypy .
+}
+
+info+=( "teardown -- Teardown the Docker environment" )
+teardown() {
+    docker compose -f docker-compose.yml down --volumes
+}
+
+info+=( "help -- List all available commands" )
+help() {
+    echo "Available commands:"
+    for cmd in "${info[@]}"; do
+        echo "  $cmd"
+    done
+}
+
+commands=( "dev" "_dev" "server" "_server" "test" "_test" "e2e" "fmt" "_fmt" "mypy" "_mypy" "teardown" "help" )
+
+# Entrypoint
+main() {
+    local cmd="$1"
+    shift
+
+    if [[ -z "$cmd" ]]; then
+    help
+    elif [[ " ${commands[@]} " =~ " ${cmd} " ]]; then
+        $cmd "$@"
+    else
+        echo "Unknown command: $cmd"
+        help
+        exit 1
+    fi
+}
+
+main "$@"

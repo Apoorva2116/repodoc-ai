@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "realworld-flask"
+version = "0.1.0"
+description = ""
+authors = ["Michael Hegelheimer <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pydantic = "^2.5.2"
+flask = "^3.0.0"
+pyhumps = "^3.8.0"
+alembic = "^1.13.1"
+psycopg2-binary = "^2.9.9"
+bcrypt = "^4.2.0"
+pyjwt = "^2.9.0"
+flask-cors = "^5.0.0"
+
+[tool.poetry.group.dev.dependencies]
+ipython = "^8.18.1"
+ipdb = "^0.13.13"
+mypy = "^1.7.1"
+ruff = "^0.1.6"
+pytest = "^7.4.4"
+black = "^24.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
