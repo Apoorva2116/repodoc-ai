@@ -1,0 +1,282 @@
+[
+  {
+    "id": 1,
+    "question": "How is JWT authentication implemented?",
+    "type": "answerable",
+    "gold_keywords": ["generate_jwt", "_decode_jwt", "SECRET_KEY", "HS256"],
+    "gold_sources": ["corpus/realworld/api/core/auth.py"]
+  },
+  {
+    "id": 2,
+    "question": "What algorithm is used to sign JWT tokens?",
+    "type": "answerable",
+    "gold_keywords": ["HS256"],
+    "gold_sources": ["corpus/realworld/api/core/auth.py"]
+  },
+  {
+    "id": 3,
+    "question": "Where is the JWT secret key configured?",
+    "type": "answerable",
+    "gold_keywords": ["SECRET_KEY", "os.getenv"],
+    "gold_sources": ["corpus/realworld/api/core/auth.py"]
+  },
+  {
+    "id": 4,
+    "question": "How are expired JWT tokens handled?",
+    "type": "answerable",
+    "gold_keywords": ["ExpiredSignatureError", "jwt.decode"],
+    "gold_sources": ["corpus/realworld/api/core/auth.py"]
+  },
+  {
+    "id": 5,
+    "question": "How is the database connection configured?",
+    "type": "answerable",
+    "gold_keywords": ["database", "SQLAlchemy"],
+    "gold_sources": ["corpus/realworld/api/core/db.py"]
+  },
+  {
+    "id": 6,
+    "question": "What ORM is used by the application?",
+    "type": "answerable",
+    "gold_keywords": ["SQLAlchemy"],
+    "gold_sources": ["corpus/realworld/api/core/db.py", "corpus/realworld/api/core/models.py"]
+  },
+  {
+    "id": 7,
+    "question": "What database models are defined in the application?",
+    "type": "answerable",
+    "gold_keywords": ["User", "Article", "Comment"],
+    "gold_sources": ["corpus/realworld/api/core/models.py"]
+  },
+  {
+    "id": 8,
+    "question": "How are article routes organized?",
+    "type": "answerable",
+    "gold_keywords": ["articles", "routes.py", "handler.py"],
+    "gold_sources": ["corpus/realworld/api/routes/v1/articles/routes.py", "corpus/realworld/api/routes/v1/articles/handler.py"]
+  },
+  {
+    "id": 9,
+    "question": "How are user registration and login handled?",
+    "type": "answerable",
+    "gold_keywords": ["register", "login", "users"],
+    "gold_sources": ["corpus/realworld/api/routes/v1/users/routes.py", "corpus/realworld/api/routes/v1/users/handler.py"]
+  },
+  {
+    "id": 10,
+    "question": "How are user profiles implemented?",
+    "type": "answerable",
+    "gold_keywords": ["profiles", "profile"],
+    "gold_sources": ["corpus/realworld/api/routes/v1/profiles/routes.py", "corpus/realworld/api/routes/v1/profiles/handler.py"]
+  },
+  {
+    "id": 11,
+    "question": "How are article models represented?",
+    "type": "answerable",
+    "gold_keywords": ["Article"],
+    "gold_sources": ["corpus/realworld/api/routes/v1/articles/models.py"]
+  },
+  {
+    "id": 12,
+    "question": "How does article pagination work?",
+    "type": "answerable",
+    "gold_keywords": ["limit", "offset"],
+    "gold_sources": ["corpus/realworld/api/routes/v1/articles/handler.py"]
+  },
+  {
+    "id": 13,
+    "question": "How are article tags handled?",
+    "type": "answerable",
+    "gold_keywords": ["tags"],
+    "gold_sources": ["corpus/realworld/api/routes/v1/articles/handler.py", "corpus/tests/api/test_tags.py"]
+  },
+  {
+    "id": 14,
+    "question": "How does the application validate authentication tokens?",
+    "type": "answerable",
+    "gold_keywords": ["validate_token", "Authorization"],
+    "gold_sources": ["corpus/realworld/api/core/auth.py"]
+  },
+  {
+    "id": 15,
+    "question": "What happens when an invalid JWT is provided?",
+    "type": "answerable",
+    "gold_keywords": ["InvalidTokenError", "False"],
+    "gold_sources": ["corpus/realworld/api/core/auth.py"]
+  },
+  {
+    "id": 16,
+    "question": "How is the Flask application initialized?",
+    "type": "answerable",
+    "gold_keywords": ["Flask", "app"],
+    "gold_sources": ["corpus/realworld/app.py"]
+  },
+  {
+    "id": 17,
+    "question": "How are database migrations configured?",
+    "type": "answerable",
+    "gold_keywords": ["alembic", "migration"],
+    "gold_sources": ["corpus/alembic/env.py", "corpus/alembic.ini"]
+  },
+  {
+    "id": 18,
+    "question": "How is the application containerized?",
+    "type": "answerable",
+    "gold_keywords": ["Dockerfile", "docker"],
+    "gold_sources": ["corpus/Dockerfile", "corpus/docker-compose.yml"]
+  },
+  {
+    "id": 19,
+    "question": "What services are defined in Docker Compose?",
+    "type": "answerable",
+    "gold_keywords": ["services", "postgres"],
+    "gold_sources": ["corpus/docker-compose.yml"]
+  },
+  {
+    "id": 20,
+    "question": "What Python dependencies does the project use?",
+    "type": "answerable",
+    "gold_keywords": ["Flask", "SQLAlchemy", "PyJWT"],
+    "gold_sources": ["corpus/pyproject.toml"]
+  },
+  {
+    "id": 21,
+    "question": "How are API tests structured?",
+    "type": "answerable",
+    "gold_keywords": ["pytest", "tests", "api"],
+    "gold_sources": ["corpus/tests/conftest.py", "corpus/tests/api/test_articles.py"]
+  },
+  {
+    "id": 22,
+    "question": "How are article endpoints tested?",
+    "type": "answerable",
+    "gold_keywords": ["test", "article"],
+    "gold_sources": ["corpus/tests/api/test_articles.py"]
+  },
+  {
+    "id": 23,
+    "question": "How are profile endpoints tested?",
+    "type": "answerable",
+    "gold_keywords": ["test", "profile"],
+    "gold_sources": ["corpus/tests/api/test_profiles.py"]
+  },
+  {
+    "id": 24,
+    "question": "How are user endpoints tested?",
+    "type": "answerable",
+    "gold_keywords": ["test", "user"],
+    "gold_sources": ["corpus/tests/api/test_users.py"]
+  },
+  {
+    "id": 25,
+    "question": "What API specification is provided by the repository?",
+    "type": "answerable",
+    "gold_keywords": ["OpenAPI"],
+    "gold_sources": ["corpus/scripts/openapi.yml"]
+  },
+  {
+    "id": 26,
+    "question": "Is there a Postman collection for the API?",
+    "type": "answerable",
+    "gold_keywords": ["Postman"],
+    "gold_sources": ["corpus/scripts/Conduit.postman_collection.json"]
+  },
+  {
+    "id": 27,
+    "question": "How can the local database tables be truncated?",
+    "type": "answerable",
+    "gold_keywords": ["truncate", "tables"],
+    "gold_sources": ["corpus/scripts/truncate-local-tables.sh"]
+  },
+  {
+    "id": 28,
+    "question": "How can the API tests be executed?",
+    "type": "answerable",
+    "gold_keywords": ["run-api-tests", "pytest"],
+    "gold_sources": ["corpus/scripts/run-api-tests.sh"]
+  },
+  {
+    "id": 29,
+    "question": "What HTTP methods are used by the article API?",
+    "type": "answerable",
+    "gold_keywords": ["GET", "POST"],
+    "gold_sources": ["corpus/realworld/api/routes/v1/articles/routes.py"]
+  },
+  {
+    "id": 30,
+    "question": "How are passwords handled for users?",
+    "type": "answerable",
+    "gold_keywords": ["password"],
+    "gold_sources": ["corpus/realworld/api/routes/v1/users/models.py", "corpus/realworld/api/routes/v1/users/handler.py"]
+  },
+  {
+    "id": 31,
+    "question": "Does the repository use Redis for caching?",
+    "type": "unanswerable",
+    "gold_keywords": [],
+    "gold_sources": []
+  },
+  {
+    "id": 32,
+    "question": "Does the application use MongoDB?",
+    "type": "unanswerable",
+    "gold_keywords": [],
+    "gold_sources": []
+  },
+  {
+    "id": 33,
+    "question": "Does the repository implement Kubernetes deployment manifests?",
+    "type": "unanswerable",
+    "gold_keywords": [],
+    "gold_sources": []
+  },
+  {
+    "id": 34,
+    "question": "Does the application use AWS Lambda?",
+    "type": "unanswerable",
+    "gold_keywords": [],
+    "gold_sources": []
+  },
+  {
+    "id": 35,
+    "question": "What machine learning model is used for article recommendations?",
+    "type": "unanswerable",
+    "gold_keywords": [],
+    "gold_sources": []
+  },
+  {
+    "id": 36,
+    "question": "What React components implement the frontend?",
+    "type": "unanswerable",
+    "gold_keywords": [],
+    "gold_sources": []
+  },
+  {
+    "id": 37,
+    "question": "What Kubernetes service exposes the application?",
+    "type": "unanswerable",
+    "gold_keywords": [],
+    "gold_sources": []
+  },
+  {
+    "id": 38,
+    "question": "Which AWS S3 bucket stores uploaded profile images?",
+    "type": "unanswerable",
+    "gold_keywords": [],
+    "gold_sources": []
+  },
+  {
+    "id": 39,
+    "question": "What React state management library is used?",
+    "type": "unanswerable",
+    "gold_keywords": [],
+    "gold_sources": []
+  },
+  {
+    "id": 40,
+    "question": "What OpenAI model does the application use in production?",
+    "type": "unanswerable",
+    "gold_keywords": [],
+    "gold_sources": []
+  }
+]

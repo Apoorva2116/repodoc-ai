@@ -1,0 +1,12 @@
+{
+  "model": "phi3:mini + RAG",
+  "total_questions": 40,
+  "answerable_questions": 30,
+  "unanswerable_questions": 10,
+  "average_keyword_score": 0.878,
+  "average_source_score": 0.817,
+  "hit_at_5": 0.867,
+  "unknown_detection_rate": 0.9,
+  "false_refusal_rate": 0.2,
+  "average_latency_seconds": 133.57
+}
